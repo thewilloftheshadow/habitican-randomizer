@@ -5,14 +5,14 @@ function randomElememtFromArray(arr) {
 }
 
 async function equipItem(type, key, headers) {
-  return await fetch(`https://habitica.com/api/v3/user/equip/${type}/${key}`, {
+  return await fetch(`http://8.12.22.18:8080/api/v3/user/equip/${type}/${key}`, {
     method: "POST",
     headers
   }).then(res => res.json())
 }
 
 async function castSkill(spellId, targetId, headers) {
-  let url = `https://habitica.com/api/v3/user/class/cast/${spellId}`;
+  let url = `http://8.12.22.18:8080/api/v3/user/class/cast/${spellId}`;
   if (targetId) {
     url += "?targetId=" + targetId;
   }
@@ -131,7 +131,7 @@ function buyRandomEquipment(gp, c, eqArr, headers) {
       .getElementById("buyRandomEquipment")
       .addEventListener("click", async () => {
         let itemToPurchase = randomElememtFromArray(eqArr);
-        const response = await fetch(`https://habitica.com/api/v3/user/buy-gear/${itemToPurchase.key}`, {
+        const response = await fetch(`http://8.12.22.18:8080/api/v3/user/buy-gear/${itemToPurchase.key}`, {
             method: "POST",
             headers
           })
@@ -155,7 +155,7 @@ async function randomBackground(backgrounds, headers) {
 
   document.getElementById("equipRandomBackgroundButton").addEventListener("click", async () => {
     let backgroundToEquip = randomElememtFromArray(backgrounds);
-    const response = await fetch(`https://habitica.com/api/v3/user/unlock?path=background.${backgroundToEquip}`, {
+    const response = await fetch(`http://8.12.22.18:8080/api/v3/user/unlock?path=background.${backgroundToEquip}`, {
         method: "POST",
         headers
       })
@@ -210,7 +210,7 @@ function startRandomQuest(questsObj, userLevel, headers) {
   if (questsArr.length > 0) {
     document.getElementById('randomQuestButton').addEventListener('click', async () => {
       let randomQuest = randomElememtFromArray(questsArr);
-      await fetch(`https://habitica.com/api/v3/groups/party/quests/invite/${randomQuest}`, {
+      await fetch(`http://8.12.22.18:8080/api/v3/groups/party/quests/invite/${randomQuest}`, {
         method: "post",
         headers
       }).then(resp => resp.json);
@@ -318,7 +318,7 @@ document.getElementById('submit-api-key').addEventListener("click", async () => 
         background: backgroundsObj
       }
     }
-  } = await fetch('https://habitica.com/api/v3/user', {
+  } = await fetch('http://8.12.22.18:8080/api/v3/user', {
     method: 'GET',
     headers
   }).then(r => r.json());
@@ -327,7 +327,7 @@ document.getElementById('submit-api-key').addEventListener("click", async () => 
     success: partyDataWasFound,
     error,
     data: partyMembersArr
-  } = await fetch('https://habitica.com/api/v3/groups/party/members', {
+  } = await fetch('http://8.12.22.18:8080/api/v3/groups/party/members', {
     method: 'GET',
     headers
 
@@ -335,7 +335,7 @@ document.getElementById('submit-api-key').addEventListener("click", async () => 
 
   const {
     data: availableEquipmentArr
-  } = await fetch('https://habitica.com/api/v3/user/inventory/buy', {
+  } = await fetch('http://8.12.22.18:8080/api/v3/user/inventory/buy', {
     method: 'GET',
     headers
   }).then(r => r.json());
@@ -344,13 +344,13 @@ document.getElementById('submit-api-key').addEventListener("click", async () => 
     data: {
       quest
     }
-  } = await fetch('https://habitica.com/api/v3/groups/party', {
+  } = await fetch('http://8.12.22.18:8080/api/v3/groups/party', {
       method: 'GET',
       headers
     })
     .then(r => r.json());
 
-  const allGear = await fetch('https://habitica.com/api/v3/content' + "?language=en", {
+  const allGear = await fetch('http://8.12.22.18:8080/api/v3/content' + "?language=en", {
     method: 'get',
     headers
   }).then(r => r.json()).then(d => d.data.gear.flat)
